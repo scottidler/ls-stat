@@ -9,7 +9,18 @@ if [[ "$@" == *"--help"* ]]; then
     exec ls --help
 fi
 
-base=""
+count=0
+for arg in "$@"; do
+    if [ -e "$arg" ]; then
+        base="$arg"
+        ((count++))
+    fi
+done
+
+if [ "$count" -ne 1 ]; then
+    base=""
+fi
+
 while read line; do
     if [ -z "$line" ]; then
         echo

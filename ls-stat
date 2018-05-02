@@ -11,7 +11,8 @@ while read line; do
         echo
         continue
     fi
-    path=${line##* }
+    nocolor=$(echo $line | sed -r "s/\x1B\[([0-9]{1,2}(;[0-9]{1,2})?)?[mGK]//g")
+    path=${nocolor##* }
     if [[ "$path" =~ ':'$ ]]; then
         base="${path::-1}/"
     fi

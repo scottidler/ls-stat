@@ -5,6 +5,10 @@ if [ -n "$DEBUG" ]; then
     set -x
 fi
 
+if [[ "$@" == *"--help"* ]]; then
+    exec ls --help
+fi
+
 base=""
 while read line; do
     if [ -z "$line" ]; then

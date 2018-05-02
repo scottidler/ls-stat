@@ -15,14 +15,14 @@ while read line; do
         echo
         continue
     fi
-    nocolor=$(echo $line | sed -r "s/\x1B\[([0-9]{1,2}(;[0-9]{1,2})?)?[mGK]//g")
+    nocolor=$(echo "$line" | sed -r "s/\x1B\[([0-9]{1,2}(;[0-9]{1,2})?)?[mGK]//g")
     path=${nocolor##* }
     if [[ "$path" =~ ':'$ ]]; then
         base="${path::-1}/"
     fi
     perm=$(stat -c "%a" "$base$path" 2>/dev/null)
     if [ -n "$perm" ]; then
-        printf "$perm "
+        printf "%s" "$perm "
     fi
     echo "$line"
 done < <(ls "$@")

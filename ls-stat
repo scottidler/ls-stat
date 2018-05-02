@@ -31,9 +31,9 @@ while read line; do
     if [[ "$path" =~ ':'$ ]]; then
         base="${path::-1}/"
     fi
-    perm=$(stat -c "%a" "$base$path" 2>/dev/null)
-    if [ -n "$perm" ]; then
-        printf "%s" "$perm "
+    access=$(stat -c "%a" "$base$path" 2>/dev/null)
+    if [ -n "$access" ]; then
+        printf "%s" "$access "
     fi
     echo "$line"
 done < <(ls "$@")

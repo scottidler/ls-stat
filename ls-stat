@@ -18,7 +18,7 @@ for arg in "$@"; do
 done
 
 if [ "$count" -ne 1 ]; then
-    base=""
+    base="."
 fi
 
 while read line; do
@@ -29,9 +29,9 @@ while read line; do
     nocolor=$(echo "$line" | sed -r "s/\x1B\[([0-9]{1,2}(;[0-9]{1,2})?)?[mGK]//g")
     path="$(echo "$nocolor" | sed -re 's|([A-Za-z0-9_-.:/]+[ \t]+)*(([A-Za-z0-9_-.:/]+)( -> [A-Za-z0-9_-.:/]+)?)|\3|')"
     if [[ "$path" =~ ':'$ ]]; then
-        base="${path::-1}/"
+        base="${path::-1}"
     fi
-    access=$(stat -c "%a" "$base$path" 2>/dev/null)
+    access=$(stat -c "%a" "$base/$path" 2>/dev/null)
     if [ -n "$access" ]; then
         printf "%s " "$access"
     fi

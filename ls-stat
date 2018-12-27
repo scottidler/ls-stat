@@ -28,7 +28,7 @@ while read line; do
     if [[ "$path" =~ ':'$ ]]; then
         base="${path::-1}"
     fi
-    access=$(stat -c "%a" "$base/$path" 2>/dev/null)
+    access=$(stat -c "%a" "$base/${path%\*}" 2>/dev/null)
     if [ -n "$access" ]; then
         printf "%s " "$access"
     fi
